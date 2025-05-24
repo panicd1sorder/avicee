@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор степенів</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #d4fc79, #96e6a1);
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c7873;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            background: #2c7873;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1e5954;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Обчислення степінь</h1>
+        <form onsubmit="calculatePower(event)">
+            <input type="number" id="number" placeholder="Число" required>
+            <input type="number" id="power" placeholder="Степінь" required>
+            <div class="buttons">
+                <button type="submit">Обчислити</button>
+                <button type="reset" onclick="document.getElementById('result').innerHTML = ''">Скинути</button>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculatePower(event) {
+            event.preventDefault();
+            const num = parseFloat(document.getElementById('number').value);
+            const pow = parseFloat(document.getElementById('power').value);
+            const result = Math.pow(num, pow);
+            document.getElementById('result').innerHTML = `Результат: <strong>${result}</strong>`;
+        }
+    </script>
+</body>
+</html>

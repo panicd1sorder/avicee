@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triangle Moving on Circle</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="400" height="400" style="border:1px solid #ccc;"></canvas>
+
+  <script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = 100;
+    let angle = 0;
+    const width = 80; 
+    const height = 80;
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); 
+
+      const x = centerX + radius * Math.cos(angle);
+      const y = centerY + radius * Math.sin(angle); 
+
+      ctx.save(); 
+
+      
+      ctx.translate(x, y);
+
+      ctx.rotate(angle + Math.PI / 2); 
+
+      
+      ctx.beginPath();
+      ctx.moveTo(0, -height / 2);   
+      ctx.lineTo(width / 2, height / 2);   
+      ctx.lineTo(-width / 2, height / 2); 
+      ctx.closePath();
+      ctx.fillStyle = 'blue'; 
+      ctx.fill();
+
+      ctx.restore(); 
+      angle += 0.05; 
+
+      requestAnimationFrame(animate); 
+    }
+
+    animate(); 
+  </script>
+</body>
+</html>

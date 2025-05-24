@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Номер букви в алфавіті</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 50px;
+      border-radius: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 500px;
+      width: 90%;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      color: #ff6f00;
+      margin-bottom: 20px;
+    }
+
+    p.description {
+      font-size: 1.2em;
+      color: #6d4c41;
+      margin-bottom: 30px;
+    }
+
+    input[type="text"] {
+      font-size: 2em;
+      padding: 15px;
+      width: 100px;
+      border: 2px solid #ffb300;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #ff6f00;
+      box-shadow: 0 0 10px #ffa000;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: #ff6f00;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #f4511e;
+      transform: scale(1.05);
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 1.6em;
+      color: #4e342e;
+      min-height: 40px;
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Алфавітний номер літери</h1>
+    <p class="description">Введіть українську літеру, щоб дізнатися її позицію в алфавіті:</p>
+    <input type="text" id="letterInput" maxlength="1" placeholder="А">
+    <br>
+    <button onclick="findLetterIndex()">Перевірити</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const alphabet = [
+      'а','б','в','г','ґ','д','е','є','ж','з','и','і','ї','й',
+      'к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч',
+      'ш','щ','ь','ю','я'
+    ];
+
+    function findLetterIndex() {
+      const input = document.getElementById("letterInput").value.toLowerCase();
+      const resultEl = document.getElementById("result");
+      const index = alphabet.indexOf(input);
+
+      if (index === -1) {
+        resultEl.textContent = "❗ Це не українська літера або помилка вводу.";
+        resultEl.style.color = "#c62828";
+      } else {
+        resultEl.textContent = `✅ Літера "${input}" є ${index + 1}-ю в українському алфавіті.`;
+        resultEl.style.color = "#2e7d32";
+      }
+    }
+  </script>
+</body>
+</html>

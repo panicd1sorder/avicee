@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Показ емодзі</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 2px solid #fcb69f;
+            margin-bottom: 15px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #f78ca0;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #f45c7f;
+        }
+
+        .emoji {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Перегляд емодзі за кодом</h1>
+        <div class="label">Введіть код Unicode (напр. <code>1F602</code>):</div>
+        <input type="text" id="emojiInput" placeholder="напр. 1F600">
+        <br>
+        <button onclick="showEmoji()">Показати</button>
+        <div class="emoji" id="emojiOutput"></div>
+    </div>
+
+    <script>
+        function showEmoji() {
+            const input = document.getElementById("emojiInput").value.trim().toUpperCase();
+            const output = document.getElementById("emojiOutput");
+
+            if (!/^[0-9A-F]{4,6}$/.test(input)) {
+                output.textContent = "❌ Невірний код!";
+                return;
+            }
+
+            const emojiChar = String.fromCodePoint(parseInt(input, 16));
+            output.textContent = emojiChar;
+        }
+    </script>
+</body>
+</html>

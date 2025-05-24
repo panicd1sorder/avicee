@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор випадкових чисел</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a580e9, #96e6a1);
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            color: #2c7873;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        button {
+            background: #2c7873;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #1e5954;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Генератор випадкових чисел</h1>
+        <form onsubmit="event.preventDefault(); generateRandom();">
+            <input type="number" id="min" placeholder="Мінімум" required>
+            <input type="number" id="max" placeholder="Максимум" required>
+            <div class="buttons">
+                <button type="submit">Генерувати</button>
+                <button type="reset" onclick="document.getElementById('result').innerHTML = ''">Скинути</button>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function generateRandom() {
+            const min = parseInt(document.getElementById('min').value);
+            const max = parseInt(document.getElementById('max').value);
+            let output = '';
+
+            if (isNaN(min) || isNaN(max) || min >= max) {
+                output = "<p>Будь ласка, введіть коректний діапазон!</p>";
+            } else {
+                for (let i = 0; i < 10; i++) {
+                    let result = Math.floor(Math.random() * (max - min + 1)) + min;
+                    output += `<p>${result}</p>`;
+                }
+            }
+
+            document.getElementById('result').innerHTML = output;
+        }
+    </script>
+</body>
+</html>

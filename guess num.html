@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вгадай число</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #f1e865, #d65d8b);
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 320px;
+        }
+        h1 {
+            color: #2c7873;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        button {
+            flex: 1;
+            margin: 0 5px;
+            background: #2c7873;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #1e5954;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Вгадай число</h1>
+    <form id="gameForm" onsubmit="startGame(event)">
+        <input type="number" id="min" placeholder="Мінімум (напр. 10)" required>
+        <input type="number" id="max" placeholder="Максимум (напр. 99)" required>
+        <input type="number" id="guess" placeholder="Ваш варіант" required disabled>
+        <div class="buttons">
+            <button type="submit">Почати гру</button>
+            <button type="button" onclick="resetGame()">Скинути</button>
+        </div>
+    </form>
+    <div id="output"></div>
+</div>
+
+<script>
+    let randomNumber, min, max, attempts;
+    const maxAttempts = 10;
+
+    function startGame(event) {
+        event.preventDefault();
+        min = parseInt(document.getElementById('min').value);
+        max = parseInt(document.getElementById('max').value);
+        const guessInput = document.getElementById('guess');
+
+        if (min >= max) {
+            document.getElementById('output').innerHTML = "<p>Мінімум має бути меншим за максимум.</p>";
+            return;
+        }
+
+        randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+        attempts = 0;
+
+        document.getElementById('output').innerHTML = `<p>Число загадане! Введіть свій варіант (від ${min} до ${max}).</p>`;
+        guessInput.disabled = false;
+        guessInput.focus();
+        document.getElementById('gameForm').onsubmit = checkGuess;
+    }
+
+    function checkGuess(event) {
+        event.preventDefault();
+        const guess = parseInt(document.getElementById('guess').value);
+        const output = document.getElementById('output');
+
+        if (isNaN(guess) || guess < min || guess > max) {
+            output.innerHTML += `<p>Будь ласка, введіть число в діапазоні ${min}–${max}.</p>`;
+            return;
+        }
+
+        attempts++;
+        if (guess === randomNumber) {
+            output.innerHTML += `<p><strong>🎉 Вітаємо! Ви вгадали число ${randomNumber} за ${attempts} спроб!</strong></p>`;
+            endGame();
+        } else if (attempts >= maxAttempts) {
+            output.innerHTML += `<p>😢 Ви не вгадали. Загадане число було ${randomNumber}.</p>`;
+            endGame();
+        } else {
+            const hint = guess < randomNumber ? 'більше' : 'менше';
+            output.innerHTML += `<p>Спроба ${attempts}/${maxAttempts}: Загадане число ${hint}.</p>`;
+        }
+
+        document.getElementById('guess').value = '';
+    }
+
+    function endGame() {
+        document.getElementById('guess').disabled = true;
+        document.getElementById('gameForm').onsubmit = startGame;
+    }
+
+    function resetGame() {
+        document.getElementById('min').value = '';
+        document.getElementById('max').value = '';
+        document.getElementById('guess').value = '';
+        document.getElementById('guess').disabled = true;
+        document.getElementById('output').innerHTML = '';
+        document.getElementById('gameForm').onsubmit = startGame;
+    }
+</script>
+</body>
+</html>

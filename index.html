@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Біографія та роботи</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f4f4f4, #e0eafc);
+      overflow-x: hidden;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      position: relative;
+      background: url('background.jpg') center/cover no-repeat;
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5); /* затемнение */
+      z-index: 0;
+    }
+
+    header img,
+    header h1,
+    header p {
+      position: relative;
+      z-index: 1;
+    }
+
+    header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      animation: fadeIn 1s ease-out 0.3s;
+      animation-fill-mode: backwards;
+    }
+
+    header h1, header p {
+      animation: fadeIn 1s ease-out;
+      animation-fill-mode: backwards;
+    }
+
+    header h1 {
+      margin-top: 20px;
+      font-size: 36px;
+      animation-delay: 0.5s;
+    }
+
+    header p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: 10px auto 0;
+      animation-delay: 0.7s;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      animation: fadeIn 1s ease-out 1s;
+      animation-fill-mode: backwards;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 28px;
+      position: relative;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .project {
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .project:nth-child(1) { animation-delay: 0.2s; }
+    .project:nth-child(2) { animation-delay: 0.3s; }
+    .project:nth-child(3) { animation-delay: 0.4s; }
+    .project:nth-child(4) { animation-delay: 0.5s; }
+    .project:nth-child(5) { animation-delay: 0.6s; }
+    .project:nth-child(6) { animation-delay: 0.7s; }
+    .project:nth-child(7) { animation-delay: 0.8s; }
+
+    .project a {
+      display: block;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+    }
+
+    .project a:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      background-color: #f0f8ff;
+    }
+
+    .wave {
+      position: relative;
+      width: 100%;
+      height: 100px;
+      background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDE2MDAgNTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTAgMGgxNjAwdjUwSDB6IiBmaWxsPSIjZmZmIi8+PHBhdGggZD0iTTAgMTBoNDAwYzEwMCAwIDEwMCAyMCAyMDAgMjBzMTAwLTIwIDIwMC0yMCAxMDAgMjAgMjAwIDIwIDEwMC0yMCAyMDAgLTIwaDQwMHY0MEgweiIgZmlsbD0iI2Y0ZjRmNCIvPjwvc3ZnPg==') no-repeat;
+      background-size: cover;
+    }
+
+    .digital-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  color: #f2e7f3;
+  text-shadow: 0 0 8px #eb9ce7, 0 0 12px #cd7ed8;
+  margin-top: 20px;
+  animation: flicker 2s infinite alternate;
+}
+
+/* Мерехтіння */
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.8; }
+  100% { opacity: 1; }
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="me1.jpg" alt="Моє фото">
+    <h1 class="digital-title">Hello World!</h1>
+    <p>Привіт! Мене звати Влад, моя мета — розвиватися у сфері веб-розробки, вивчати сучасні технології та створювати зручні й красиві вебзастосунки, які вирішують реальні проблеми. Ось мої роботи — обирайте будь-яку для перегляду!</p>
+  </header>
+
+  <div class="wave"></div>
+
+  <section>
+    <h2>✨ Мої роботи</h2>
+    <div class="projects">
+      <div class="project"><a href="triangel.html">📐 Площа та периметр фігур</a></div>
+      <div class="project"><a href="fib.html">☢️ Число Фібоначчі</a></div>
+      <div class="project"><a href="emoji.html">👻 Unicode Емодзі</a></div>
+      <div class="project"><a href="degree.html">💡 Степінь</a></div>
+      <div class="project"><a href="guess num.html">🎯 Вгадай число</a></div>
+      <div class="project"><a href="random num.html">🔢 Числа в діапазоні</a></div>
+      <div class="project"><a href="number analysis.html">📊 Аналіз числа</a></div>
+      <div class="project"><a href="compliments.html">😊 Компліменти</a></div>
+      <div class="project"><a href="chess.html">♟️ Шахівниця</a></div>
+      <div class="project"><a href="alphabet.html">🆘 Алфавіт</a></div>
+      <div class="project"><a href="Random Shape Generator.html">🔷 Генерація фігур Canvas</a></div>
+      <div class="project"><a href="setInterval().html">👁️‍🗨️ setInterval()</a></div>
+      <div class="project"><a href="breaking news.html">📳 setINterval() Breaking news</a></div>
+      <div class="project"><a href="string.html">🔍 Пошук підрядка</a></div>
+      <div class="project"><a href="steps.html">🔺 Трикутник із символів</a></div>
+      <div class="project"><a href="country.html">🌍 Країни</a></div>
+      <div class="project"><a href="draw.html">✒️ Малюнок</a></div>
+    </div>
+  </section>
+
+</body>
+</html>

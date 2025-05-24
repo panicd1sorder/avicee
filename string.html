@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Пошук підрядка</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #c3aed6, #74ebd5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+
+    label {
+      color: #ffffff;
+      font-weight: 500;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ab47bc, #26c6da);
+      color: white;
+      padding: 14px;
+      border: none;
+      width: 100%;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    #result.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h2>🔍 Пошук підрядка</h2>
+
+    <label for="mainText">Введіть текст:</label>
+    <textarea id="mainText" rows="5" placeholder="Ваш текст тут..."></textarea>
+
+    <label for="searchText">Що шукати:</label>
+    <input type="text" id="searchText" placeholder="Наприклад: Слово">
+
+    <button class="btn" onclick="findSubstring()">🔎 Шукати</button>
+
+    <p id="result"></p>
+  </div>
+
+  <script>
+    function findSubstring() {
+      const text = document.getElementById("mainText").value.toLowerCase();
+      const search = document.getElementById("searchText").value.toLowerCase();
+      const result = document.getElementById("result");
+
+      result.classList.remove("show");
+
+      if (search.trim() === "") {
+        result.textContent = "⚠️ Введіть підрядок для пошуку.";
+        result.style.color = "#ffeb3b";
+      } else if (text.includes(search)) {
+        result.textContent = `✅ Знайдено: підрядок "${search}" є в тексті.`;
+        result.style.color = "#b2ff59";
+      } else {
+        result.textContent = `❌ Підрядок "${search}" не знайдено.`;
+        result.style.color = "#ff8a80";
+      }
+
+      setTimeout(() => {
+        result.classList.add("show");
+      }, 50);
+    }
+  </script>
+</body>
+</html>

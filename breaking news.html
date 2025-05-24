@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Text</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: pink;
+        }
+
+        .newspaper {
+            padding: 1rem 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+            background-color: white;
+            color: #333;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); 
+        }
+
+        .newspaper:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="newspaper">Breaking News:<br /> Programmers Unlock the Code to 'Hello, World!'</div>
+
+    <script>
+        const newspaperSpinning = [
+            { transform: "rotate(0) scale(3)" },
+            { transform: "rotate(360deg) scale(0)" },
+        ];
+
+        const newspaperTiming = {
+            duration: 1500,
+            iterations: 1,
+        };
+
+        const newspaper = document.querySelector(".newspaper");
+
+        newspaper.addEventListener("click", () => {
+            newspaper.animate(newspaperSpinning, newspaperTiming);
+        });
+    </script>
+</body>
+</html>

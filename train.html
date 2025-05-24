@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Паровозик по кругу (setTimeout)</title>
+  <style>
+    body {
+      background: #f0f8ff;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .circle-path {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      top: 50%;
+      left: 50%;
+      margin-top: -150px;
+      margin-left: -150px;
+    }
+
+    #train {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="circle-path" id="circle">
+    <img src="train.jpg" id="train" alt="Паровозик">
+  </div>
+
+  <script>
+    const train = document.getElementById("train");
+    const radius = 130;
+    let angle = 0;
+
+    function moveTrain() {
+      const x = 150 + radius * Math.cos(angle);
+      const y = 150 + radius * Math.sin(angle);
+      train.style.left = x + "px";
+      train.style.top = y + "px";
+      angle += 0.05;
+      setTimeout(moveTrain, 20); 
+    }
+    moveTrain();
+  </script>a
+
+</body>
+</html>

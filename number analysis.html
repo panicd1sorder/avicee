@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналіз числа</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 360px;
+        }
+        h1 {
+            color: #6a0572;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            font-size: 16px;
+        }
+        button {
+            background: #6a0572;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+        button:hover {
+            background: #4a024f;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+            min-height: 100px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Аналіз числа</h1>
+    <form id="digitForm" onsubmit="analyzeNumber(event)">
+        <input type="number" id="numberInput" placeholder="Введіть ціле число" required>
+        <button type="submit">Аналізувати</button>
+    </form>
+    <div id="output"></div>
+</div>
+
+<script>
+function analyzeNumber(event) {
+    event.preventDefault();
+    const number = document.getElementById('numberInput').value;
+    if (!number || isNaN(number)) return;
+
+    const digits = number.replace("-", "");
+    const length = digits.length;
+    let evenCount = 0, oddCount = 0, sum = 0, outputDigits = "";
+
+    for (let i = 0; i < length; i++) {
+        const digit = parseInt(digits[i]);
+        sum += digit;
+        outputDigits += digit + " ";
+        if (digit % 2 === 0) evenCount++;
+        else oddCount++;
+    }
+
+    let word = "цифр";
+    const lastDigit = length % 10;
+    const lastTwoDigits = length % 100;
+    if (lastDigit === 1 && lastTwoDigits !== 11) {
+        word = "цифра";
+    } else if ([2, 3, 4].includes(lastDigit) && ![12, 13, 14].includes(lastTwoDigits)) {
+        word = "цифри";
+    }
+
+    document.getElementById('output').innerHTML = `
+        <p>Кількість цифр: <strong>${length} ${word}</strong></p>
+        <p>Цифри числа: <strong>${outputDigits.trim()}</strong></p>
+        <p>Сума цифр: <strong>${sum}</strong></p>
+        <p>Парні цифри: <strong>${evenCount}</strong></p>
+        <p>Непарні цифри: <strong>${oddCount}</strong></p>
+    `;
+}
+</script>
+</body>
+</html>

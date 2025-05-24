@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="500" height="500"
+    style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+    <script>
+    let c = document.getElementById("myCanvas");
+    let cxt = c.getContext("2d");
+
+    let r,g,b;
+    let x=15, y=15;
+    for(let i = 0; i < 30; i++){
+        r=Math.floor(Math.random()*256);
+        g=Math.floor(Math.random()*256);
+        b=Math.floor(Math.random()*256);
+        cxt.fillStyle = `rgb (${r}, ${g}, ${b})`;
+        cxt.fillRect(x, y, 150, 150);
+        x = x + 15;
+        y = y + 15;
+    }
+
+
+
+    /*miter: прямі з'єднання, які утворюють прямі кути. Це значення за замовчуванням
+    bevel: конічні з'єднання
+    round: закруглені з'єднання
+        <canvas id="myCanvas" width="500" height="500"
+    style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.</canvas>
+    <script>
+    let c = document.getElementById("myCanvas");
+    let cxt = c.getContext("2d");
+    cxt.fillStyle = "rgb(200, 0, 0)";
+    cxt.fillRect(15, 15, 200, 200);
+
+    cxt.fillStyle = "rgba(0, 200, 0,0.5)";
+    cxt.fillRect(30, 30, 200, 200);
+
+    cxt.fillStyle = "rgba(0, 0, 200, 0.5)";
+    cxt.fillRect(45, 45, 200, 200);
+
+    cxt.strokeStyle = "yellow";
+    cxt.lineWidth = 6;
+    cxt.setLineDash([15,5,30,42,12]);
+    cxt.strokeRect(15, 15, 200, 200);
+
+    cxt.strokeStyle = "blue";
+    cxt.setLineDash([10,2,8]);
+    cxt.strokeRect(30, 30, 200, 200);
+
+    cxt.strokeStyle = "black";
+    cxt.setLineDash([30,5,5,21]);
+    cxt.strokeRect(45, 45, 200, 200);*/
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Трикутник із символів</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #2f2b27;
+      color: #f4f1ee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      color: #e7d9cc;
+    }
+
+    input, button {
+      margin: 10px;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"], input[type="number"] {
+      background-color: #3e3a36;
+      color: #f4f1ee;
+      border: 1px solid #5e554e;
+    }
+
+    input:focus {
+      border-color: #b8a392;
+    }
+
+    button {
+      background-color: #5c4b43;
+      color: #f4f1ee;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #7a655c;
+    }
+
+    #result {
+      font-family: monospace;
+      font-size: 20px;
+      margin-top: 20px;
+      background-color: #3a3530;
+      padding: 20px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      white-space: pre;
+    }
+  </style>
+</head>
+<body>
+  <h2>Символьний трикутник</h2>
+  <input type="text" id="symbolInput" maxlength="1" placeholder="Символ">
+  <input type="number" id="rowsInput" placeholder="Кількість рядків" min="1">
+  <button onclick="drawTriangle()">Показати трикутник</button>
+
+  <div id="result"></div>
+
+  <script>
+    function drawTriangle() {
+      const symbol = document.getElementById('symbolInput').value;
+      const rows = parseInt(document.getElementById('rowsInput').value);
+      let output = '';
+
+      if (!symbol || isNaN(rows) || rows < 1) {
+        output = 'Будь ласка, введіть символ та кількість рядків (більше нуля).';
+      } else {
+        const maxWidth = 2 * rows - 1;
+        for (let i = 1; i <= rows; i++) {
+          const charCount = 2 * i - 1;
+          const sideSpaces = Math.floor((maxWidth - charCount) / 2);
+          const line =
+            '\u00A0'.repeat(sideSpaces) +
+            symbol.repeat(charCount) +
+            '\u00A0'.repeat(sideSpaces);
+          output += line + '\n';
+        }
+      }
+
+      document.getElementById('result').textContent = output;
+    }
+  </script>
+</body>
+</html>

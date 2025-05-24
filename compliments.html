@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/buttons.css">
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Генератор компліментів</title>
+</head>
+<body>
+  <div class="container"> 
+  <h1>Генератор компліментів</h1>
+  <form onsubmit="compliments1(event)">
+    <label for="complimentCount">Введіть кількість компліментів:</label>
+    <input type="number" id="complimentCount" name="complimentCount" min="1" required>
+    <button type="submit" class="button1">Згенерувати</button>
+    <button type="reset" class="button2" onclick="document.getElementById('output').innerHTML = ''">
+      <span class="button-content">Reset</span>
+    </button>
+
+    </button>
+  </form>
+  <div id="output"></div>
+</div>
+  <script>
+    function compliments1(event) {
+      event.preventDefault(); // зупиняє стандартну відправку форми
+
+      const compliments = [
+        "brilliant", "charming", "amazing", "talented", "inspiring", "radiant",
+        "confident", "witty", "creative", "kind", "exceptional", "unique",
+        "smart", "thoughtful", "strong"
+      ];
+
+      const animals = [
+        "dog", "cat", "elephant", "tiger", "lion", "giraffe", "zebra", "rabbit",
+        "kangaroo", "panda", "bear", "wolf", "fox", "monkey", "dolphin",
+        "whale", "eagle", "parrot", "crocodile", "penguin"
+      ];
+
+      const colors = [
+        "red", "blue", "green", "yellow", "orange", "purple", "pink", "brown",
+        "gray", "cyan", "magenta", "lime", "teal", "indigo", "violet",
+        "gold", "silver", "beige"
+      ];
+
+      const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+      const count = parseInt(document.getElementById('complimentCount').value, 10);
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = ''; // очистка попередніх результатів
+
+      if (isNaN(count) || count <= 0) {
+        outputDiv.innerHTML = "<p>Будь ласка, введіть правильне число.</p>";
+      } else {
+        for (let i = 0; i < count; i++) {
+          const compliment = getRandomElement(compliments);
+          const animal = getRandomElement(animals);
+          const complimentColor = getRandomElement(colors);
+          const animalColor = getRandomElement(colors);
+
+          const paragraph = document.createElement('p');
+          paragraph.style.color = 'black';
+          paragraph.innerHTML = `You are a <span style="color: ${complimentColor};">${compliment}</span> like a <span style="color: ${animalColor};">${animal}</span>.`;
+          outputDiv.appendChild(paragraph);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+
+</body>
+</html>

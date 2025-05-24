@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Число Фібоначчі</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #89f7fe, #66a6ff, #a6c1ee, #d4fc79);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            width: 300px;
+        }
+
+        h1 {
+            color: #333;
+            text-shadow: 1px 1px 2px #aaa;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+            border: 2px solid #66a6ff;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            border-color: #4b8fff;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 16px;
+            background-color: #4b8fff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #397be3;
+            transform: scale(1.05);
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+            color: #222;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Число Фібоначчі</h1>
+        <p>Введіть номер елемента послідовності:</p>
+        <input type="number" id="numberInput" min="0" placeholder="Наприклад, 10">
+        <button onclick="calculateFibonacci()">Обчислити</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function fibonacci(n) {
+            if (n <= 0) return 0;
+            if (n === 1) return 1;
+            let a = 0, b = 1;
+            for (let i = 2; i <= n; i++) {
+                let temp = a + b;
+                a = b;
+                b = temp;
+            }
+            return b;
+        }
+
+        function calculateFibonacci() {
+            const input = document.getElementById('numberInput').value;
+            const number = parseInt(input);
+            const resultDiv = document.getElementById('result');
+
+            if (isNaN(number) || number < 0) {
+                resultDiv.textContent = "Будь ласка, введіть невід'ємне ціле число.";
+            } else {
+                const fibNumber = fibonacci(number);
+                resultDiv.textContent = `Число Фібоначчі №${number} дорівнює ${fibNumber}.`;
+            }
+
+            resultDiv.style.opacity = 0; // для повторної анімації
+            void resultDiv.offsetWidth;  // перезапуск анімації
+            resultDiv.style.animation = "fadeIn 1s forwards";
+        }
+    </script>
+</body>
+</html>

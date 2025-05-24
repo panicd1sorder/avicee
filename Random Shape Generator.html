@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Генератор фігур на Canvas</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e3f2fd, #e1bee7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      margin-bottom: 20px;
+    }
+
+    label, select, input, button {
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    canvas {
+      border: 2px solid #333;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    form {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 15px;
+  max-width: 450px;
+  justify-content: center;
+}
+
+label {
+  flex: 1 1 100px;
+  font-weight: 600;
+  color: #555;
+}
+
+select, input[type="number"] {
+  flex: 2 1 180px;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+select:focus, input[type="number"]:focus {
+  outline: none;
+  border-color: #7b5cff;
+  box-shadow: 0 0 8px rgba(123, 92, 255, 0.4);
+}
+
+form {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
+
+  display: flex;
+  flex-wrap: wrap;      /* чтобы элементы переносились на новую строку при нехватке места */
+  gap: 15px;            /* расстояние между элементами */
+  max-width: 600px;     /* ограничение ширины формы */
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  flex: 0 0 80px;        /* фиксированная ширина для лейблов */
+  font-weight: 600;
+  color: #555;
+}
+
+select, input[type="number"] {
+  flex: 1 1 150px;       /* растягиваются, но минимальная ширина 150px */
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  min-width: 120px;
+}
+
+select:focus, input[type="number"]:focus {
+  outline: none;
+  border-color: #7b5cff;
+  box-shadow: 0 0 8px rgba(123, 92, 255, 0.4);
+}
+
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(45deg, #7b5cff, #6246ea);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(123, 92, 255, 0.5);
+  transition: background 0.4s ease, box-shadow 0.3s ease;
+  flex: 1 1 130px;
+  min-width: 120px;
+  text-align: center;
+}
+
+button:hover {
+  background: linear-gradient(45deg, #6246ea, #7b5cff);
+  box-shadow: 0 8px 25px rgba(123, 92, 255, 0.7);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 3px 10px rgba(123, 92, 255, 0.5);
+}
+
+button[type="reset"] {
+  background: linear-gradient(45deg, #ff5c5c, #ea4646);
+  box-shadow: 0 5px 15px rgba(234, 70, 70, 0.5);
+}
+
+button[type="reset"]:hover {
+  background: linear-gradient(45deg, #ea4646, #ff5c5c);
+  box-shadow: 0 8px 25px rgba(234, 70, 70, 0.7);
+}
+
+
+  </style>
+</head>
+<body>
+  <h1>Генератор випадкових фігур</h1>
+  <form id="shapeForm">
+    <label for="shape">Фігура:</label>
+    <select id="shape" name="shape">
+      <option value="circle">Коло</option>
+      <option value="triangle">Трикутник</option>
+      <option value="rectangle">Прямокутник</option>
+      <option value="pentagon">П’ятикутник</option>
+    </select>
+
+    <label for="count">Кількість:</label>
+    <input type="number" id="count" name="count" min="1" max="200" required>
+
+    <button type="submit">Малювати</button>
+    <button type="reset">Скинути</button>
+  </form>
+
+  <canvas id="myCanvas" width="800" height="800"></canvas>
+
+  <script>
+    const canvas = document.getElementById("myCanvas");
+    const ctx = canvas.getContext("2d");
+    const form = document.getElementById("shapeForm");
+
+    function getRandomColor() {
+      return `hsl(${Math.random() * 360}, 70%, 60%)`;
+    }
+
+    function getRandomPosition(size = 100) {
+      return {
+        x: Math.random() * (canvas.width - size * 2) + size,
+        y: Math.random() * (canvas.height - size * 2) + size
+      };
+    }
+
+    function drawCircle() {
+      const radius = Math.random() * 40 + 20;
+      const { x, y } = getRandomPosition(radius);
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = getRandomColor();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawTriangle() {
+      const size = Math.random() * 60 + 30;
+      const { x, y } = getRandomPosition(size);
+      ctx.beginPath();
+      ctx.moveTo(x, y - size);
+      ctx.lineTo(x - size, y + size);
+      ctx.lineTo(x + size, y + size);
+      ctx.closePath();
+      ctx.fillStyle = getRandomColor();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawRectangle() {
+      const width = Math.random() * 100 + 30;
+      const height = Math.random() * 80 + 30;
+      const { x, y } = getRandomPosition(Math.max(width, height));
+      ctx.beginPath();
+      ctx.rect(x - width / 2, y - height / 2, width, height);
+      ctx.fillStyle = getRandomColor();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    function drawPentagon() {
+      const radius = Math.random() * 40 + 20;
+      const { x, y } = getRandomPosition(radius);
+      ctx.beginPath();
+      for (let i = 0; i < 5; i++) {
+        const angle = (Math.PI * 2 / 5) * i - Math.PI / 2;
+        const px = x + radius * Math.cos(angle);
+        const py = y + radius * Math.sin(angle);
+        if (i === 0) ctx.moveTo(px, py);
+        else ctx.lineTo(px, py);
+      }
+      ctx.closePath();
+      ctx.fillStyle = getRandomColor();
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const shape = document.getElementById("shape").value;
+      const count = parseInt(document.getElementById("count").value);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < count; i++) {
+        switch (shape) {
+          case "circle": drawCircle(); break;
+          case "triangle": drawTriangle(); break;
+          case "rectangle": drawRectangle(); break;
+          case "pentagon": drawPentagon(); break;
+        }
+      }
+    });
+
+    form.addEventListener("reset", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+  </script>
+</body>
+</html>
