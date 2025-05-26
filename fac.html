@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Факторіал Онлайн</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f8fb;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 8px 8px 20px #d1d9e6, -8px -8px 20px #ffffff;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      background: #f0f4f8;
+      box-shadow: inset 4px 4px 8px #d0d4d9, inset -4px -4px 8px #ffffff;
+      color: #333;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus {
+      box-shadow: inset 2px 2px 5px #d0d4d9, inset -2px -2px 5px #ffffff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #4da6ff;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 6px 12px rgba(77, 166, 255, 0.3);
+    }
+
+    button:hover {
+      background: #3399ff;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #f9fbfd;
+      border-radius: 12px;
+      text-align: left;
+      font-size: 15px;
+      color: #333;
+      box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+    }
+
+    .result p {
+      margin: 10px 0;
+    }
+
+    .error {
+      color: #d8000c;
+      background-color: #ffd2d2;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Калькулятор факторіала</h1>
+
+    <input type="number" id="number" placeholder="Введіть число (0 – 170)" min="0" max="170">
+    <button onclick="calculateFactorial()">Обчислити</button>
+
+    <div class="error" id="error"></div>
+    <div class="result" id="output" style="display: none;"></div>
+  </div>
+
+  <script>
+    function factorial(n) {
+      if (n === 0 || n === 1) return 1n;
+      let result = 1n;
+      for (let i = 2n; i <= BigInt(n); i++) {
+        result *= i;
+      }
+      return result;
+    }
+
+    function calculateFactorial() {
+      const input = document.getElementById("number");
+      const output = document.getElementById("output");
+      const error = document.getElementById("error");
+      const num = parseInt(input.value);
+
+      if (isNaN(num) || num < 0 || num > 170) {
+        output.style.display = "none";
+        error.style.display = "block";
+        error.textContent = "Введіть ціле число від 0 до 170.";
+        return;
+      }
+
+      error.style.display = "none";
+      const fact = factorial(num);
+      const isEven = fact % 2n === 0n;
+      const digitCount = fact.toString().length;
+
+      output.style.display = "block";
+      output.innerHTML = `
+        <p><strong>${num}!</strong> = ${fact}</p>
+        <p>Парне: ${isEven ? "Так" : "Ні"}</p>
+        <p>Кількість цифр: ${digitCount}</p>
+        <p>Кратне 10: ${fact % 10n === 0n ? "Так" : "Ні"}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>

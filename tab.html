@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Таблиця множення</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #74ebd5, #acb6e5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      padding: 10px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: center;
+      margin-right: 10px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #74ebd5;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #74ebd5;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #4ecdc4;
+    }
+
+    .result {
+      margin-top: 25px;
+      text-align: left;
+    }
+
+    .result p {
+      margin: 6px 0;
+      font-size: 18px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Таблиця множення</h1>
+    <div>
+      <input type="number" id="number" value="5" min="1" max="100">
+      <button onclick="generateTable()">Показать</button>
+    </div>
+    <div class="result" id="multiplicationTable"></div>
+  </div>
+
+  <script>
+    function generateTable() {
+      const number = document.getElementById("number").value;
+      const tableDiv = document.getElementById("multiplicationTable");
+      tableDiv.innerHTML = ""; // Очистить
+
+      for (let i = 1; i <= 10; i++) {
+        const row = document.createElement("p");
+        row.textContent = `${number} × ${i} = ${number * i}`;
+        tableDiv.appendChild(row);
+      }
+    }
+
+    window.onload = generateTable;
+  </script>
+
+</body>
+</html>
